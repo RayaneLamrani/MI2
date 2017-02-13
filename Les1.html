@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Les 1</title>
+</head>
+<body>
+    <div>
+    <script type="text/javascript">
+        var uitkomst1 = 4 * 5 + 10;
+        var uitkomst2 = 4 * (5 + 10);
+        document.write('uitkomst 1:' + uitkomst1 + '<br>uitkomst 2 :' + uitkomst2);
+        
+        function Rekenmachine() {
+            this.waarde = 0;
+            this.waarde2 = 0;
+            
+            this.optelling = function() {
+                return this.waarde + this.waarde2;
+            }
+            
+            this.aftrekking = function() {
+                return this.waarde - this.waarde2;
+            }
+            
+            this.vermenigvuldiging = function() {
+                return this.waarde * this.waarde2;
+            }
+            
+            this.deling = function(){
+                return this.waarde / this.waarde2;
+            }
+        }
+        
+        var rekenen = new Rekenmachine();
+        rekenen.waarde = 5;
+        rekenen.waarde2 = 10;
+        
+        document.write("<br><hr>optelling: " + rekenen.optelling() + "<br>aftrekking: " + rekenen.aftrekking() + "<br>vermenigvuldiging: " + rekenen.vermenigvuldiging() + "<br>deling: " + rekenen.deling());
+        }
+    </script>
+    </div>
+</body>
+</html>    

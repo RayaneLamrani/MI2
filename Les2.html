@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Les 2</title>
+<style>
+    body{
+        line-height: 10px;
+    }
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+var wit = '<div class="zwart" style="background: black; height: 30px; width:30px; border:solid black 1px; display:inline-block"></div>';
+        
+var zwart = '<div class="wit" style="background: white; height: 30px; width:30px; border:solid black 1px; display:inline-block"></div>';
+  
+    for(var i = 0; i <= 3; i++)
+        {
+        for(var teller = 0; teller <= 3; teller++){
+            document.write(zwart+wit);
+        } 
+        document.write('<br>');
+            
+        for(var a = 0; a <= 3; a++){
+            document.write(wit+zwart);
+        }
+        document.write('<br>');
+    }
+    </script>
+</body>
+</html>    
