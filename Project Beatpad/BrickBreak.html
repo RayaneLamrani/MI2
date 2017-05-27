@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <title>Brick Breaking</title>
+        <link rel="stylesheet" href="BrickBreak.css">
+    </head>
+    
+<script type="text/javascript">
+
+    
+ // bij het drukken met de muis speelt er de sound af
+function play(sound){
+   var audio = document.getElementById("audio");
+    audio.setAttribute('src', sound);
+   audio.play();
+}
+
+
+    
+// bij het gebruiken van een key word het geluid afgespeeld 
+const keyMap = new Map();
+
+document.addEventListener('keypress', function(e) {
+  const sound = keyMap.get(e.keyCode);
+  console.log(e.keyCode);
+  if (sound) {
+    createElement(sound);
+  }
+});
+
+function createElement(soundFile) {
+   const audio = document.createElement('audio');
+    const source = document.createElement('source');
+    source.setAttribute('src', soundFile);
+  audio.appendChild(source);
+  audio.load();
+  audio.play();
+}
+
+function voegGeluid(soundFile, key) {
+    keyMap.set(key, soundFile);
+}
+   
+ 
+    voegGeluid('./Sound/01.wav', 65);
+    voegGeluid('./Sound/02.wav', 90); 
+    voegGeluid('./Sound/03.wav', 69);
+    voegGeluid('./Sound/04.wav', 82);
+    voegGeluid('./Sound/05.wav', 84);
+    voegGeluid('./Sound/06.wav', 81);
+    voegGeluid('./Sound/07.wav', 83);
+    voegGeluid('./Sound/08.wav', 68);
+    voegGeluid('./Sound/10.wav', 70);
+    voegGeluid('./Sound/11.wav', 71);
+    voegGeluid('./Sound/12.wav', 87);
+    voegGeluid('./Sound/13.wav', 88);
+    voegGeluid('./Sound/14.wav', 67);
+    voegGeluid('./Sound/15.wav', 86);
+    voegGeluid('./Sound/09.wav', 13);
+    
+    
+        
+    
+</script>
+      
+<body>
+    
+    
+<h1>Soundboard</h1>
+    <h2>Speel met caps-lock aan</h2>
+
+    <audio id="audio"></audio>
+    <div id="soundtrack">
+    <button onclick="play('./Sound/09.wav')">Play soundtrack OR<br> Press ENTER</button>
+    </div>
+    
+    
+
+    
+ <div class="buttons">
+     
+  
+    <button onclick="play('./Sound/01.wav')" class="title">A <br><br>Work It</button>
+
+   <button onclick="play('./Sound/02.wav')"  class="title">Z <br><br>Make it</button>
+
+  
+   <button onclick="play('./Sound/03.wav')" class="title">E<br><br>Do It</button>
+
+  
+   <button onclick="play('./Sound/04.wav')"  class="title">R<br><br> Makes Us</button>
+
+  
+   <button onclick="play('./Sound/05.wav')" class="title">T<br><br>More Then</button>
+
+ 
+   <button onclick="play('./Sound/06.wav')" class="title">Q<br><br>Power</button>
+
+ 
+   <button onclick="play('./Sound/07.wav')" class="title">S<br><br>Hour</button>
+
+  
+   <button onclick="play('./Sound/08.wav')" class="title">D<br><br>Never</button>
+
+  
+   <button onclick="play('./Sound/10.wav')" class="title">F<br><br>Harder</button>
+
+  
+   <button onclick="play('./Sound/11.wav')" class="title">G<br><br>Better</button>
+
+  
+   <button onclick="play('./Sound/12.wav')" class="title">W<br><br>Faster</button>
+
+  
+   <button onclick="play('./Sound/13.wav')" class="title">X<br><br>Stronger</button>
+
+  
+   <button onclick="play('./Sound/14.wav')" class="title">C<br><br>Ever</button>
+
+</div>
+
+</body>
+</html>

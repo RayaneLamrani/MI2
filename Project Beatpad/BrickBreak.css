@@ -1,0 +1,53 @@
+@media only screen and (max-device-width: 480px) {
+    #navigation{
+        float: none;
+        width: auto;
+    }
+	}
+body {
+  color: white;
+  background-image: url(Achtergrond.png);
+}
+h1{
+ color: white;
+  text-align: center;
+}
+h3{
+    color: white;
+    text-align: left;
+}
+
+.buttons{
+  padding: 10px 100px;
+  max-width: 480px;
+  margin:5px auto; 
+
+}
+
+    
+
+
+button{
+  float: left;
+  height: 110px;
+  width: 100px;
+  padding: 5px;
+  margin: 10px;
+     
+    
+}
+
+#soundtrack{
+  float: right;
+  height: 100px;
+  width: 100%;
+  padding: 10px;
+
+}
+#record{
+  float: left;
+  height: 100px;
+  width: 100%;
+  padding: 10px;
+
+}
