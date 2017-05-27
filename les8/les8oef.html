@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="nl">
+	<head>
+		<meta charset="utf-8" />
+		<title>Les 8 : webSQL</title>
+
+		<meta http-equiv="Content-Security-Policy" content="default-src 'unsafe-inline' 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+		
+		<link rel="stylesheet" href="css/mi2Les10.min.css">
+		
+		<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css" />
+
+		<script src="js/jquery-1.11.2.min.js"></script>
+		<script src="js/jquery.mobile-1.4.5.min.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		
+
+		<script>
+            "use strict";
+            /*global $, console, openDatabase */
+            var highScore, teller, tText, db, datum, omschrijving, afgewerkt;
+			function updateTablesSQL() {
+               //update database
+				db.transaction(function (tx) {
+					tx.executeSql('SELECT * FROM todo order by datum asc', [], function (tx, results) {
+						var len = results.rows.length, i;
+						console.log(results);
+						tText = "";
+						for (teller = 0; teller < len; teller += 1) {
+							tText += "<tr><td>" + results.rows.item(teller).datum + "<\/td><td>" + results.rows.item(teller).omschrijving + "<\/td>"+ "<td>" +results.rows.item(teller).afgewerkt+ "</td><\/tr>" ;
+						}
+						
+						$("#ToDoDB tbody").html(tText);
+					}, null);
+				});
+			}
+			$(document).ready(function () {
+		
+				datum = "2017-05-27";
+				omschrijving = "taaken MI afgeven";
+				afgewerkt = "false";
+				highScore = [{
+					"datum" : datum,
+					"omschrijving" : omschrijving,
+					"afgewerkt" : afgewerkt
+				}];
+				console.log(datum);
+				console.log(omschrijving);
+				console.log(afgewerkt);
+				// open de databank
+				db = openDatabase('mydb', '1.0', 'Test DB', 0.1 * 1024 * 1024);
+				db.transaction(function (tx) {
+					tx.executeSql('CREATE TABLE IF NOT EXISTS todo (datum, omschrijving, afgewerkt)');
+					tx.executeSql('select count(*) as aantal from todo where datum like ? and omschrijving like ? and afgewerkt like ?', [datum, omschrijving,afgewerkt], function (tx, results) {
+						// kijk na of het resultaat ok is.
+						console.log("select werkt");
+						if (results.rows.item(0).aantal === 0) {
+							// er was nog geen combinatie met de naam & score in de db, dus voeg die nu toe :
+							tx.executeSql('INSERT INTO todo (datum,omschrijving,afgewerkt) VALUES (?, ?,?)', [datum, omschrijving,afgewerkt], function (tx, results) {
+                                // de select was ok
+								console.log("ok!");
+							}, function (tx, error) {
+                                // er was een probleem met de select
+								console.log("tralalal!");
+							});
+						}
+					}, function (tx, error) {
+						console.log(error);
+					});
+				});
+                
+                
+				//update DB
+				updateTablesSQL();
+				$("#voegToe").on("click", function () {
+                  // haal de gegevens uit de form en geef de waardes door aan variabelen
+					datum = $("#datum").val();
+					omschrijving =$("#omschrijving").val();
+					if($('#afgewekt').is(":checked")){
+						afgewerkt = "true";
+					}
+					else{
+						afgewerkt= "false";
+					}
+					//  Gegevens toevpoegen aan de array
+					console.log(omschrijving);
+					highScore.push({
+						"datum" : datum,
+						"omschrijving" : omschrijving,
+						"afgewerkt" : afgewerkt
+					});
+                    
+                    // voeg de gegevens OOK toe aan de highscores tabel met WebSQL
+					db.transaction(function (tx) {
+						tx.executeSql('INSERT INTO todo (datum,omschrijving,afgewerkt) VALUES (?, ?,?)', [datum, omschrijving,afgewerkt]);
+					});
+					updateTablesSQL();
+				});
+			});
+			
+		</script>
+
+	</head>
+
+	<body>
+
+		<div data-role="page" id="home">
+			<div data-role="header" data-position="fixed" >
+				<h1>ToDo-list</h1>
+			</div>
+			<div data-role="content">
+			<form>
+				<label for="datum">datum :</label>
+				<input type="date" id="datum" required>
+
+				<label for="omschrijving">omschrijving :</label>
+				<input type="text" id="omschrijving" required>
+				<label for="afgewekt">afgewerkt :</label><br>
+				 <input type="checkbox" name="afgewerkt" id="afgewekt"><br>
+				<button id="voegToe">
+					Voeg Toe
+				</button>
+		</form>
+			</div>
+			<div data-role="footer" data-id="footMenu" data-position="fixed" >
+				<div data-role="navbar" data-grid="b">
+					<ul>
+						<li>
+							<a href="#home" class="ui-btn-active ui-state-persist" data-icon="home">Home</a>
+						</li>
+						
+						<li>
+							<a href="#highscoreDB" data-icon="edit" data-iconpos="notext">TODO DB</a>
+						</li>
+
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
+
+		</div>
+		<div data-role="page" id="highscoreDB">
+			<div data-role="header" data-position="fixed" >
+				<h1>todo uit de DB</h1>
+			</div>
+			<div data-role="content">
+				<table id="ToDoDB">
+					<thead>
+						<tr>
+							<th>Datum</th>
+							<th>omschrijving</th>
+							<th>afgewerkt</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							
+													
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div data-role="footer" data-id="footMenu" data-position="fixed">
+				<div data-role="navbar" data-grid="b">
+					<ul>
+						<li>
+							<a href="#home"  data-icon="home">Home</a>
+						</li>
+						<li>
+							<a href="#highscoreDB" class="ui-btn-active ui-state-persist" >TODO DB</a>
+						</li>
+
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
+
+		</div>
+
+	</body>
+</html>
