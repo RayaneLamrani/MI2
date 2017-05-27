@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+				<meta charset="utf-8">
+				<meta name="viewport" content="width=device-width, initial-scale=1.0">
+				<title>p68-70</title>
+</head>
+
+<body>
+		  <div>
+    <header>
+      <h1>vb p68-70</h1>
+    </header>
+    
+
+    <div>
+      <ul>
+      	<li>Hoofdstuk 1</li>
+      	<li class="actief">Hoofdstuk 2
+      		<ul>
+      			<li>Paragraaf 1</li>
+      			<li>Paragraaf 2</li>
+      			<li class="actief">Paragraaf 3</li>
+      			<li>Paragraaf 4</li>
+      			<li>Paragraaf 5</li>
+      		</ul>
+      		
+      	</li>
+      	<li>Hoofdstuk 3</li>
+      	<li>Hoofdstuk 4</li>
+      	
+      </ul>
+	</div>
+  </div>		
+  <script src="jquery-3.1.1.js"></script>
+  <script type="text/javascript">
+	"use strict";
+	  $(function(){
+		 $("body>div>div>ul>li.actief").prev().css("color", "#aaa");
+		 
+		 $("ul ul>li.actief").prevAll().css("color","red");
+		 
+		 $("body>div>div>ul>li.actief").children().css("color","green");
+		 
+		 $("body>div>div>ul>li.actief").siblings().css("text-decoration","underline");
+		  
+		  $("ul ul>li.actief").nextAll().css("font-weight","bold");
+		 
+	  });
+	
+	</script>
+</body>
+</html>
