@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+				<meta charset="utf-8">
+				<meta name="viewport" content="width=device-width, initial-scale=1.0">
+				<title>Pokemon</title>
+				<script type="text/javascript" src="../js/jquery-3.1.1.js"></script>
+				<style>
+					.Vet{
+					font-weight: bold;
+					}
+	</style>
+</head>
+	<body>
+<h2>Pokedex</h2>
+
+<ul id=choosingNames>
+	
+</ul>
+<h4>Info</h4>
+<h6>Naam pokemon: </h6>
+<div id="image"></div>
+<ul id="skils">
+
+</ul>
+<h4></h4>
+
+			
+			
+		<script>
+			var number;
+			 function getEventTarget(e) {
+        e = e || window.event;
+        return e.target || e.srcElement; 
+    }
+    var ul = document.getElementById('choosingNames');
+    ul.onclick = function(event) {
+        var target = getEventTarget(event);
+        alert(target.innerHTML);
+		for (var x =0 ; x<20 ; x++){
+			if( target.innerHTML == data.results[x].name){
+				number = x +1;
+				console.log("gotta catch them all")
+				console.log(number)
+				GetinfoFile();
+			}
+		}
+    };
+	function GetinfoFile()
+	{
+		
+		var data, infopokemon,abilleties;
+		$.ajax({
+		dataType:'json',
+		type: "GET",
+		url:"http://pokeapi.co/api/v2/pokemon/"+number,
+	}).done(function(response){
+		infopokemon =response;
+		console.log(infopokemon);
+		pokemonInfo(infopokemon)
+	});
+	}
+	$.ajax({
+		dataType:'json',
+		type: "GET",
+		url:"http://pokeapi.co/api/v2/pokemon/",
+	}).done(function(response){
+		data =response;
+		console.log(data.results[0]);
+		pokemonNamesOnScrean(data);
+	});
+		
+function pokemonNamesOnScrean(data){
+	for(var i =1; i< 20; i++){
+		
+		$("#choosingNames").append("<li>" + data.results[i].name+ "</li>" );
+	}
+}
+function pokemonInfo(infopokemon){
+		$('h6').append(infopokemon.name);
+	for (var x = 0 ; x < infopokemon.abilities.length; x++){
+		$("#skils").append("<li>" + infopokemon.abilities[x].ability.name+ "</li>" );
+	}
+	console.log(infopokemon.sprites.front_shiny);
+	$('#image').html("<img src='"+infopokemon.sprites.back_shiny+"'/>");
+		
+}
+	
+	</script>		
+</body>
+</html>
