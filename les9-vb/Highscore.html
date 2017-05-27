@@ -1,0 +1,48 @@
+<!-- We don't need full layout here, because this page will be parsed with Ajax-->
+<!-- Top Navbar-->
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="left"><a href="#" class="back link"> <i class="icon icon-back"></i><span>Back</span></a></div>
+    <div class="center sliding">Highscore</div>
+    <div class="right">
+      <!-- Right link contains only icon - additional "icon-only" class--><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a>
+    </div>
+  </div>
+</div>
+<div class="pages">
+  <!-- Page, data-page contains page name-->
+  <div data-page="Highscores" class="page">
+    <!-- Scrollable page content-->
+    <div class="page-content">
+      <div class="content-block">
+        <div class="content-block-inner">
+       	<h1>Highscore uit de DB</h1>
+       	  <div class="item-content">
+        <div class="item-media"><i class="icon f7-icons">person</i></div>
+        <div class="item-inner">
+          <div class="item-title label">Name</div>
+          <div class="item-input">
+            <input type="text" placeholder="Your name" id="naamSpeler">
+          </div>
+        </div>
+      </div>
+      <p><a href="#" class="button button-round" id="voegToe">Round Button 1</a></p>
+			<h2></h2>
+			
+				<table id="highscoreTableDB">
+					<thead>
+						<tr>
+							<th>Speler</th>
+							<th>Score</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+    </div>
+  </div>
+</div>
