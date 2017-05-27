@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Oefening 3.1</title>
+</head>
+
+<body> 
+
+<ul>
+	<li>Brussel</li>
+	<li>Gent</li>
+	<li>Antwerpen</li>
+	<li>Brugge</li>
+	<li>Grimbergen</li>
+</ul>
+	<script src=../js/jquery-3.1.1.js></script>
+<script>
+	// laatste verwijderen en als eerste terugzetten
+	var plaats = $("li").last().detach();
+	$(plaats).prependTo("ul");
+	//aantal li elementen optellen en weergeven voor de ul
+	var aantal =$("li").length;
+	$("body").before("aantal plaatsen: "  + aantal);
+	
+	// random getal genereren voor de temperatuur
+	// Probleem temperatuur is voor elke li ellement hetzelfde oplossing zoeken !!
+	 $("li").append(" <br> De temperatuur is: " + Math.round(Math.random()*100) + " °C");
+	</script>
+</body>
+
+</html>
